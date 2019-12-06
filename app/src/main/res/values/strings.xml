@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">p3</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account_click_here">DON\'T HAVE AN ACCOUNT? CLICK HERE</string>
+    <string name="heartastic">HEARTASTIC</string>
+    <string name="login_with_google">LOGIN WITH GOOGLE</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="signup">SIGNUP</string>
+    <string name="name">Name</string>
+    <string name="already_have_an_account_log_in_here">Already have an account? Log in here</string>
+    <string name="heartrate">Heartrate</string>
+    <string name="insights">Insights</string>
+    <string name="Facts">Facts</string>
+    <string name="Profile">Profile</string>
+    <string name="sign_out">SIGN-OUT</string>
+    <string name="settings">SETTINGS</string>
+    <string name="measure">MEASURE</string>
+    <string name="more">MORE</string>
+</resources>
