@@ -17,3 +17,4 @@ public class HeartRateFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_heartrate,container,false);
     }
 }
+//..
