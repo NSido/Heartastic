@@ -69,7 +69,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_edittext_login" />
 
-    <Button
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/login_google_button"
         android:layout_width="295dp"
         android:layout_height="48dp"
