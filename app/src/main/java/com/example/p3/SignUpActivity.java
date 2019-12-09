@@ -65,6 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                             writeNewUser(mAuth.getUid(),mName.getText().toString(),mEmail.getText().toString());
+
                             startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
 
                             } else {
