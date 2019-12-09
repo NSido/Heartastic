@@ -17,4 +17,5 @@
     <string name="settings">SETTINGS</string>
     <string name="measure">MEASURE</string>
     <string name="more">MORE</string>
+    <string name="pair_device_and_measure">Pair device and measure your pulse</string>
 </resources>
