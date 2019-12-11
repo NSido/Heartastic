@@ -11,7 +11,7 @@
         android:id="@+id/button"
         android:layout_width="295dp"
         android:layout_height="48dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginTop="416dp"
         android:background="@drawable/button"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/sign_out"
@@ -22,48 +22,38 @@
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/edittext_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/edittext_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_name" />
+
+    <EditText
+        android:id="@+id/edittext_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/edittext_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edittext_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/to_change_password_enter_it_here"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
+        app:layout_constraintBottom_toTopOf="@+id/button_update_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/edittext_email" />
 
     <include
         android:id="@+id/include"
@@ -81,6 +71,23 @@
         app:layout_constraintEnd_toEndOf="@+id/include"
         app:layout_constraintStart_toStartOf="@+id/include"
         app:layout_constraintTop_toTopOf="@+id/include" />
+
+    <Button
+        android:id="@+id/button_update_profile"
+        android:layout_width="295dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="416dp"
+        android:background="@drawable/button"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/white"
+        android:layout_marginBottom="44dp"
+        android:text="@string/update_profile"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

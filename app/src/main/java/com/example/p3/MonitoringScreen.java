@@ -24,6 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Bundle;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MonitoringScreen extends Activity {
 
     private static final String TAG = "BlueTest5-MainActivity";
@@ -31,6 +35,9 @@ public class MonitoringScreen extends Activity {
     private UUID mDeviceUUID;
     private BluetoothSocket mBTSocket;
     private ReadInput mReadThread = null;
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
 
     private boolean mIsUserInitiatedDisconnect = false;
@@ -67,6 +74,9 @@ public class MonitoringScreen extends Activity {
         scrollView = (ScrollView) findViewById(R.id.viewScroll);
         mBtnClearInput = (Button) findViewById(R.id.btnClearInput);
         mTxtReceive.setMovementMethod(new ScrollingMovementMethod());
+
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -125,6 +135,7 @@ public class MonitoringScreen extends Activity {
                                 @Override
                                 public void run() {
                                     mTxtReceive.append(strInput);
+                                    mDatabase.child("users").child(mAuth.getUid()).child(String.valueOf(System.currentTimeMillis())).setValue(strInput);
 
                                     int txtLength = mTxtReceive.getEditableText().length();
                                     if(txtLength > mMaxChars){

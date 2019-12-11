@@ -18,4 +18,6 @@
     <string name="measure">MEASURE</string>
     <string name="more">MORE</string>
     <string name="pair_device_and_measure">Pair device and measure your pulse</string>
+    <string name="to_change_password_enter_it_here">To change password enter it here</string>
+    <string name="update_profile">Update profile</string>
 </resources>
