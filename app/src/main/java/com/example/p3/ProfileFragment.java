@@ -30,12 +30,11 @@ public class ProfileFragment extends Fragment {
     EditText mName;
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_profile,container,false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
         mFirebaseAuth = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         mSignOutButton = view.findViewById(R.id.button);
@@ -55,33 +54,29 @@ public class ProfileFragment extends Fragment {
 
 
 
-
-
-
-        }
-
-        mUpdateProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mPassword.getText().toString().isEmpty()) {
-                    if (user != null) {
-                        user.updatePassword("dinfarer")
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(getActivity(), "Password updated", Toast.LENGTH_LONG).show();
-                                        } else {
-                                            Toast.makeText(getActivity(), "Password Could not be updated", Toast.LENGTH_LONG).show();
+            mUpdateProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!mPassword.getText().toString().isEmpty()) {
+                        if (user != null) {
+                            user.updatePassword("dinfarerrekt")
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(getActivity(), "Password updated", Toast.LENGTH_LONG).show();
+                                            } else {
+                                                Toast.makeText(getActivity(), "Password Could not be updated", Toast.LENGTH_LONG).show();
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), "Field is empty", Toast.LENGTH_LONG).show();
                     }
-                } else {
-                    Toast.makeText(getActivity(), "Field is empty", Toast.LENGTH_LONG).show();
                 }
-            }
-        });
+            });
+        }
 
         mSignOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,8 +93,6 @@ public class ProfileFragment extends Fragment {
 
 
     }
-
-
 
 
 }

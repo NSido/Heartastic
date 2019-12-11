@@ -1,9 +1,11 @@
 package com.example.p3;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,30 +25,66 @@ import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 public class InsightsFragment extends Fragment {
+
+ private TextView minHeartRateTextView;
+ private TextView avgHeartRateTextView;
+ private TextView maxHeartRateTextView;
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_insights,container,false);
-       Pie pie = AnyChart.pie();
+        AnyChartView anyChartView = view.findViewById(R.id.any_chart_view);
+        avgHeartRateTextView = view.findViewById(R.id.textview_avg_hr);
+        minHeartRateTextView = view.findViewById(R.id.textview_min_hr);
+        maxHeartRateTextView = view.findViewById(R.id.textview_max_hr);
+
+        Pie pie = AnyChart.pie();
         Cartesian cartesian = AnyChart.column();
         List<DataEntry> data = new ArrayList<>();
+
+        ArrayList<Integer> hrData = new ArrayList<>();
+        int avgHeartRate;
+        int maxHeartRate;
+        int minHeartRate;
+
+
+        for (int i = 60; i <= 100; i++){
+         hrData.add(i);
+        }
+
+
+        avgHeartRate = calculateAverage(hrData);
+        minHeartRate = Collections.min(hrData);
+        maxHeartRate = Collections.max(hrData);
+        Log.d(TAG, "heartrate " + maxHeartRate );
+
+        avgHeartRateTextView.setText(String.valueOf(avgHeartRate) + " " + "BPM" );
+        minHeartRateTextView.setText(String.valueOf(minHeartRate) + " " + "BPM");
+        maxHeartRateTextView.setText(String.valueOf(maxHeartRate) + " " + "BPM");
+
+
         /*data.add(new ValueDataEntry("John", 10000));
         data.add(new ValueDataEntry("Jake", 12000));
         data.add(new ValueDataEntry("Peter", 18000));*/
 
-        data.add(new ValueDataEntry("Test", 80540));
-        data.add(new ValueDataEntry("Test1", 94190));
-        data.add(new ValueDataEntry("Test2", 102610));
-        data.add(new ValueDataEntry("Test3", 110430));
-        data.add(new ValueDataEntry("Test4", 128000));
-        data.add(new ValueDataEntry("Test5", 143760));
-        data.add(new ValueDataEntry("Test6", 170670));
-        data.add(new ValueDataEntry("Test7", 213210));
-        data.add(new ValueDataEntry("Test8", 249980));
+        data.add(new ValueDataEntry("January", 120));
+        data.add(new ValueDataEntry("February", 90));
+        data.add(new ValueDataEntry("March", 80));
+        data.add(new ValueDataEntry("Test3", 110));
+        data.add(new ValueDataEntry("Test4", 68));
+        data.add(new ValueDataEntry("Test5", 76));
+        data.add(new ValueDataEntry("Test6", 67));
+        data.add(new ValueDataEntry("Test7", 213));
+        data.add(new ValueDataEntry("Test8", 98));
 
         Column column = cartesian.column(data);
 
@@ -60,7 +98,7 @@ public class InsightsFragment extends Fragment {
                 .offsetY(5d)
                 .format("${%Value}{groupsSeparator: }");
         cartesian.animation(true);
-        cartesian.title("HeartRate overview");
+        cartesian.title("Heartrate overview");
 
         cartesian.yScale().minimum(0d);
 
@@ -70,9 +108,8 @@ public class InsightsFragment extends Fragment {
         cartesian.interactivity().hoverMode(HoverMode.BY_X);
 
         cartesian.xAxis(0).title("Date");
-        cartesian.yAxis(0).title("HeartRate");
+        cartesian.yAxis(0).title("Heartrate");
 
-        AnyChartView anyChartView = view.findViewById(R.id.any_chart_view);
         //anyChartView.setChart(pie);
         anyChartView.setChart(cartesian);
 
@@ -80,4 +117,15 @@ public class InsightsFragment extends Fragment {
 
 
     }
+
+ private int calculateAverage(List <Integer> hrData) {
+  Integer sum = 0;
+  if(!hrData.isEmpty()) {
+   for (Integer heartRate : hrData) {
+    sum += heartRate;
+   }
+   return sum / hrData.size();
+  }
+  return sum;
+ }
 }
