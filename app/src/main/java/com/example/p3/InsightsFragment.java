@@ -23,6 +23,12 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +41,9 @@ public class InsightsFragment extends Fragment {
  private TextView minHeartRateTextView;
  private TextView avgHeartRateTextView;
  private TextView maxHeartRateTextView;
+ private FirebaseAuth mAuth;
+ private DatabaseReference mDatabaseRef;
+ private FirebaseUser mUser;
 
 
 
@@ -57,9 +66,9 @@ public class InsightsFragment extends Fragment {
         int minHeartRate;
 
 
-        for (int i = 60; i <= 100; i++){
+        /*for (int i = 60; i <= 100; i++){
          hrData.add(i);
-        }
+        }*/
 
 
         avgHeartRate = calculateAverage(hrData);
