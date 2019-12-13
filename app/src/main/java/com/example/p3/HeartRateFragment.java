@@ -2,6 +2,7 @@ package com.example.p3;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.Date;
 
+import static android.content.ContentValues.TAG;
+
 public class HeartRateFragment extends Fragment {
        private Button mMeasureButton;
        private FirebaseAuth mAuth;
@@ -36,7 +39,7 @@ public class HeartRateFragment extends Fragment {
 
         ArrayList<Integer> hrData = new ArrayList<>();
 
-        for (int i = 1; i <= 10; i++){
+        for (int i = 1; i <= 100; i++){
             hrData.add(i);
         }
 
@@ -48,6 +51,8 @@ public class HeartRateFragment extends Fragment {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
         String date = simpleDateFormat.format(mDate);
+
+        Log.d(TAG, "onCreateView: " + date);
 
         if (mUser != null){
         for(Integer hrRate : hrData) {

@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,7 @@ import com.anychart.enums.TooltipPositionMode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -41,7 +44,9 @@ public class InsightsFragment extends Fragment {
  private TextView minHeartRateTextView;
  private TextView avgHeartRateTextView;
  private TextView maxHeartRateTextView;
+ private ListView mListView;
  private FirebaseAuth mAuth;
+ private DatabaseReference mDatabaseRefRoot;
  private DatabaseReference mDatabaseRef;
  private FirebaseUser mUser;
 
@@ -55,30 +60,67 @@ public class InsightsFragment extends Fragment {
         avgHeartRateTextView = view.findViewById(R.id.textview_avg_hr);
         minHeartRateTextView = view.findViewById(R.id.textview_min_hr);
         maxHeartRateTextView = view.findViewById(R.id.textview_max_hr);
+        mListView = view.findViewById(R.id.listview_hr);
+
+        mAuth = FirebaseAuth.getInstance();
+
+
+        mDatabaseRefRoot = FirebaseDatabase.getInstance().getReference();
+        mDatabaseRef = mDatabaseRefRoot.child("UserHeartRateData").child(mAuth.getUid()).child("2019/12/14");
+
+
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Integer> hrData = new ArrayList<>();
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String hRate = String.valueOf(ds.getValue());
+                    hrData.add(Integer.valueOf(hRate));
+                }
+                Log.d("TAG", hrData.toString());
+                int avgHeartRate = calculateAverage(hrData);
+                int maxHeartRate = Collections.max(hrData);
+                int minHeartRate = Collections.min(hrData);
+                avgHeartRateTextView.setText(String.valueOf(avgHeartRate) + " " + "BPM" );
+                minHeartRateTextView.setText(String.valueOf(minHeartRate) + " " + "BPM");
+                maxHeartRateTextView.setText(String.valueOf(maxHeartRate) + " " + "BPM");
+
+                ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1
+                ,hrData);
+
+                mListView.setAdapter(arrayAdapter);
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        mDatabaseRef.addListenerForSingleValueEvent(eventListener);
 
         Pie pie = AnyChart.pie();
         Cartesian cartesian = AnyChart.column();
         List<DataEntry> data = new ArrayList<>();
 
-        ArrayList<Integer> hrData = new ArrayList<>();
-        int avgHeartRate;
-        int maxHeartRate;
-        int minHeartRate;
+
+
 
 
         /*for (int i = 60; i <= 100; i++){
          hrData.add(i);
         }*/
 
-
-        avgHeartRate = calculateAverage(hrData);
+        /*avgHeartRate = calculateAverage(hrData);
         minHeartRate = Collections.min(hrData);
         maxHeartRate = Collections.max(hrData);
         Log.d(TAG, "heartrate " + maxHeartRate );
-
-        avgHeartRateTextView.setText(String.valueOf(avgHeartRate) + " " + "BPM" );
-        minHeartRateTextView.setText(String.valueOf(minHeartRate) + " " + "BPM");
-        maxHeartRateTextView.setText(String.valueOf(maxHeartRate) + " " + "BPM");
+*/
+        //avgHeartRateTextView.setText(String.valueOf(avgHeartRate) + " " + "BPM" );
+        //minHeartRateTextView.setText(String.valueOf(minHeartRate) + " " + "BPM");
+       // maxHeartRateTextView.setText(String.valueOf(maxHeartRate) + " " + "BPM");
 
 
         /*data.add(new ValueDataEntry("John", 10000));
