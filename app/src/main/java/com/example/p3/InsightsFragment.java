@@ -91,7 +91,7 @@ public class InsightsFragment extends Fragment {
 
                 mListView.setAdapter(arrayAdapter);
 
-
+//
 
 
             }
@@ -123,9 +123,6 @@ public class InsightsFragment extends Fragment {
        // maxHeartRateTextView.setText(String.valueOf(maxHeartRate) + " " + "BPM");
 
 
-        /*data.add(new ValueDataEntry("John", 10000));
-        data.add(new ValueDataEntry("Jake", 12000));
-        data.add(new ValueDataEntry("Peter", 18000));*/
 
         data.add(new ValueDataEntry("January", 120));
         data.add(new ValueDataEntry("February", 90));
