@@ -27,4 +27,6 @@
     <string name="enter_new_password">Enter new password</string>
     <string name="enter_new_name_here">Enter new name here</string>
     <string name="change_name">change name</string>
+    <string name="name_updated">Your name has been updated</string>
+    <string name="fill_all">Please fill all fields!</string>
 </resources>

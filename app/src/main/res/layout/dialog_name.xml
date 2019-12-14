@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:padding="10dp"
+    >
 
     <TextView
         android:id="@+id/textView"
@@ -28,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:text="@string/change_name"
         android:textColor="@android:color/white" />
 </LinearLayout>
