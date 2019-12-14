@@ -11,49 +11,60 @@
         android:id="@+id/button"
         android:layout_width="295dp"
         android:layout_height="48dp"
-        android:layout_marginTop="416dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/button"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/sign_out"
         android:textColor="@color/white"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintTop_toBottomOf="@+id/button_update_profile"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
+    <TextView
         android:id="@+id/edittext_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/edittext_password"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edittext_name" />
 
-    <EditText
+    <TextView
         android:id="@+id/edittext_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/edittext_email"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
-    <EditText
+    <TextView
         android:id="@+id/edittext_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
         android:ems="10"
-        android:hint="@string/to_change_password_enter_it_here"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/button_update_profile"
+        android:fontFamily="@font/roboto_regular"
+        android:inputType="numberPassword"
+        android:text="@string/justforshow"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_email" />
+        app:layout_constraintTop_toBottomOf="@+id/edittext_email"
+        app:layout_constraintVertical_bias="0.0" />
 
     <include
         android:id="@+id/include"
@@ -68,26 +79,54 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/include"
-        app:layout_constraintEnd_toEndOf="@+id/include"
-        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/include" />
 
     <Button
         android:id="@+id/button_update_profile"
         android:layout_width="295dp"
         android:layout_height="48dp"
-        android:layout_marginTop="416dp"
+        android:layout_marginTop="96dp"
         android:background="@drawable/button"
         android:fontFamily="@font/roboto_medium"
-        android:textColor="@color/white"
-        android:layout_marginBottom="44dp"
         android:text="@string/update_profile"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/edittext_password" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toStartOf="@+id/edittext_password"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:srcCompat="@drawable/ic_lock_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="68dp"
+        app:layout_constraintEnd_toStartOf="@+id/edittext_email"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:srcCompat="@drawable/ic_email_black_17dp" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="104dp"
+        app:layout_constraintEnd_toStartOf="@+id/edittext_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_person_black_17dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

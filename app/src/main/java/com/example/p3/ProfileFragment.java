@@ -1,5 +1,6 @@
 package com.example.p3;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,9 +28,9 @@ public class ProfileFragment extends Fragment {
     Button mSignOutButton;
     Button mUpdateProfile;
     FirebaseUser user;
-    EditText mEmail;
-    EditText mPassword;
-    EditText mName;
+    TextView mEmail;
+    TextView mPassword;
+    TextView mName;
 
 
     @Nullable
@@ -43,7 +46,7 @@ public class ProfileFragment extends Fragment {
         mPassword = view.findViewById(R.id.edittext_password);
         mName = view.findViewById(R.id.edittext_name);
 
-        if (user != null) {
+        /*if (user != null) {
             // Name, email address, and profile photo Url
             String name = user.getDisplayName();
             String email = user.getEmail();
@@ -76,7 +79,62 @@ public class ProfileFragment extends Fragment {
                     }
                 }
             });
-        }
+        }*/
+        final String [] options = {"Change name", "Change password"};
+        mUpdateProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("What would you like to change?");
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialog, int which) {
+                        // the user clicked on colors[which]
+                        if(which == 0){
+                            AlertDialog.Builder mBuilderName = new AlertDialog.Builder(getActivity());
+                            View mViewName = getLayoutInflater().inflate(R.layout.dialog_name,null);
+                            EditText newName = mViewName.findViewById(R.id.edittext_name_dialog);
+                            Button changeName = mViewName.findViewById(R.id.button_change_name);
+
+                            changeName.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                            Toast.makeText(getActivity(), "Changing name...", Toast.LENGTH_LONG).show();
+
+                                }
+                            });
+
+                            mBuilderName.setView(mViewName);
+                            AlertDialog alertDialogName = mBuilderName.create();
+                            alertDialogName.show();
+
+
+                        }else if(which == 1){
+                            AlertDialog.Builder mBuilderPassword = new AlertDialog.Builder(getActivity());
+                            View mViewPassword = getLayoutInflater().inflate(R.layout.dialog_password,null);
+                            EditText oldPassword = mViewPassword.findViewById(R.id.edittext_password_dialog1);
+                            EditText newPassword1 = mViewPassword.findViewById(R.id.edittext_password_dialog2);
+                            EditText newPassword2 = mViewPassword.findViewById(R.id.edittext_password_dialog3);
+                            Button changePassword = mViewPassword.findViewById(R.id.button_change_password);
+
+                            changePassword.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                            Toast.makeText(getActivity(), "Changing password...", Toast.LENGTH_LONG).show();
+                            dialog.dismiss();
+                                }
+                            });
+
+                            mBuilderPassword.setView(mViewPassword);
+                            AlertDialog alertDialogName = mBuilderPassword.create();
+                            alertDialogName.show();
+
+                        }
+                    }
+                });
+                builder.show();
+            }
+        });
 
         mSignOutButton.setOnClickListener(new View.OnClickListener() {
             @Override

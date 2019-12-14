@@ -143,21 +143,28 @@
 
     <ListView
         android:id="@+id/listview_hr"
-        android:layout_width="409dp"
-        android:layout_height="360dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
+        android:layout_width="369dp"
+        android:layout_height="197dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_min_hr_desc" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_avg_hr_desc" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="371dp"
+        android:layout_marginEnd="411dp"
+        android:layout_marginBottom="362dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="369dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_end="360dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

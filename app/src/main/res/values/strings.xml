@@ -20,4 +20,11 @@
     <string name="pair_device_and_measure">Pair device and measure your pulse</string>
     <string name="to_change_password_enter_it_here">To change password enter it here</string>
     <string name="update_profile">Update profile</string>
+    <string name="justforshow">justforshow</string>
+    <string name="change_password">Change password</string>
+    <string name="enter_old_password">Enter old password</string>
+    <string name="enter_new_password_again">Enter new password again</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="enter_new_name_here">Enter new name here</string>
+    <string name="change_name">change name</string>
 </resources>
