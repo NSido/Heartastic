@@ -1,16 +1,20 @@
 package com.example.p3;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.anychart.AnyChart;
@@ -34,12 +38,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class InsightsFragment extends Fragment {
+public class InsightsFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
 
     private TextView minHeartRateTextView;
     private TextView avgHeartRateTextView;
@@ -53,6 +58,7 @@ public class InsightsFragment extends Fragment {
     private FirebaseUser mUser;
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,11 +70,14 @@ public class InsightsFragment extends Fragment {
         mListView = view.findViewById(R.id.listview_hr);
         changeDateTextView = view.findViewById(R.id.change_date_tv);
 
+
+
         mAuth = FirebaseAuth.getInstance();
 
 
         mDatabaseRefRoot = FirebaseDatabase.getInstance().getReference();
         mDatabaseRef = mDatabaseRefRoot.child("UserHeartRateData").child(mAuth.getUid()).child("2019/12/14");
+
 
 
         ValueEventListener eventListener = new ValueEventListener() {
@@ -102,6 +111,7 @@ public class InsightsFragment extends Fragment {
         changeDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            showDatePickerDialog();
 
             }
         });
@@ -160,5 +170,25 @@ public class InsightsFragment extends Fragment {
             return sum / hrData.size();
         }
         return sum;
+    }
+
+    private void showDatePickerDialog(){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getActivity(),
+                this,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        month +=1;
+        String date = year + "/" + month + "/" + dayOfMonth;
+        changeDateTextView.setText(date);
+
     }
 }
