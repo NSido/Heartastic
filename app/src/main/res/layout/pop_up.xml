@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/common_google_signin_btn_icon_dark_normal_background">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#8FF0F0E5"
+        android:backgroundTint="#00EFF1F1"
+        android:text="To set uo the device and get going you must do the following:\n 1.Turn on bluetooth on your phone.\n2.Connect to the bluetooth device named HC-05 with password 1234.\n3.Go back to the app and click on Pair device and measure your pulse.\n4.Click on search button and choose HC-05 and connect to it using the connect button.\n5.Congrats! now place your finger on the heart sensor and view your heart rate."
+        android:textColor="#EE000000"
+        android:textSize="16sp" />
+</RelativeLayout>

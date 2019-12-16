@@ -1,12 +1,20 @@
 package com.example.p3;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
@@ -27,6 +35,7 @@ import static android.content.ContentValues.TAG;
 
 public class HeartRateFragment extends Fragment {
        private Button mMeasureButton;
+       private Button mInstructButton;
        private FirebaseAuth mAuth;
        private DatabaseReference mDatabaseRef;
        private FirebaseUser mUser;
@@ -37,13 +46,21 @@ public class HeartRateFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_heartrate,container,false);
 
-        ArrayList<Integer> hrData = new ArrayList<>();
-/*
+        mInstructButton = view.findViewById(R.id.instruct_button);
+        mInstructButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PopUp.class);
+                startActivity(intent);
+            }
+        });
+    ArrayList<Integer> hrData = new ArrayList<>();
+
         for (int i = 1; i <= 100; i++){
             hrData.add(i);
-        }*/
+        }
 
-      /*  mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mDate = new Date();
@@ -58,7 +75,8 @@ public class HeartRateFragment extends Fragment {
         for(Integer hrRate : hrData) {
             mDatabaseRef.child("UserHeartRateData").child(mAuth.getUid()).child(date).setValue(hrData);
         }
-        }*/
+        }
+
 
         mMeasureButton = view.findViewById(R.id.measure_button);
         mMeasureButton.setOnClickListener(new View.OnClickListener() {

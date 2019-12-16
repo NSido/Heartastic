@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/FactsTxt"
+        android:layout_width="330dp"
+        android:layout_height="495dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="#77FFFFFF"
+        android:maxLines="28"
+        android:scrollbars="vertical"
+        android:text="\nWhat should your heart rate be when working out, and how can you keep track of it?
+        \nFind out what normal resting and maximum heart rates are for your age and how exercise intensity and other factors affect heart rate.
+        \nHow do you get your heart rate in the target zone?
+         When you work out, are you doing too much or not enough? There’s a simple way to know: Your target heart rate helps you hit the bullseye so you can get max benefit from every step, swing and squat. Even if you’re not a gym rat or elite athlete, knowing your heart rate (or pulse) can help you track your health and fitness level.
+
+        \nFirst Things First: Resting Heart Rate Your resting heart rate is the number of times your heart beats per minute when you’re at rest. A good time to check it is in the morning after you’ve had a good night’s sleep.
+        \nFor most of us, between 60 and 100 beats per minute (bpm) is normal.1 The rate can be affected by factors like stress, anxiety, hormones, medication, and how physically active you are. An athlete or more active person may have a resting heart rate as low as 40 beats per minute. Now that’s chill!
+        \nWhen it comes to resting heart rate, lower is better. It usually means your heart muscle is in better condition and doesn’t have to work as hard to maintain a steady beat. Studies have found that a higher resting heart rate is linked with lower physical fitness and higher blood pressure and body weight.
+        \nKnow Your Numbers: Maximum and Target Heart Rate. Your maximum heart rate is about 220 minus your age. Target heart rate during moderate intensity activities is about 50-70% of maximum heart rate, while during vigorous physical activity it’s about 70-85% of maximum.
+        \nThe figures are averages, so use them as a general guide.
+        \nTo read more about how to optimise your workout using your heart rate as a guide, visit https://www.heart.org/en/healthy-living/fitness/fitness-basics/target-heart-rates "
+        android:textColor="#000000"
+        android:textColorHighlight="#00FFFFFF"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/Facts"
-        android:textColor="@color/colorPrimary"
-        android:textAlignment="center"
-        android:textSize="50sp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintVertical_bias="0.384" />
 
     <include
         android:id="@+id/include"
@@ -31,5 +49,7 @@
         app:layout_constraintEnd_toEndOf="@+id/include"
         app:layout_constraintStart_toStartOf="@+id/include"
         app:layout_constraintTop_toTopOf="@+id/include" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
