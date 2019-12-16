@@ -1,6 +1,7 @@
 package com.example.p3;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,12 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
+import com.anychart.graphics.vector.Stroke;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -56,6 +63,11 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
     private DatabaseReference mDatabaseRefRoot;
     private DatabaseReference mDatabaseRef;
     private FirebaseUser mUser;
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+    ArrayList<Integer> hrData;
 
 
 
@@ -63,12 +75,14 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_insights, container, false);
-        AnyChartView anyChartView = view.findViewById(R.id.any_chart_view);
+        //AnyChartView anyChartView = view.findViewById(R.id.any_chart_view);
         avgHeartRateTextView = view.findViewById(R.id.textview_avg_hr);
         minHeartRateTextView = view.findViewById(R.id.textview_min_hr);
         maxHeartRateTextView = view.findViewById(R.id.textview_max_hr);
         mListView = view.findViewById(R.id.listview_hr);
         changeDateTextView = view.findViewById(R.id.change_date_tv);
+
+        hrData = new ArrayList<>();
 
 
 
@@ -81,8 +95,47 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
             }
         });
 
-        Pie pie = AnyChart.pie();
-        Cartesian cartesian = AnyChart.column();
+        lineChart = view.findViewById(R.id.lineChart);
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.BLACK);
+        lineDataSet.setValueTextSize(18f);
+
+       /* Pie pie = AnyChart.pie();
+        Cartesian cartesian = AnyChart.line();
+        cartesian.animation(true);
+        cartesian.padding(10d, 20d, 5d, 20d);
+        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
+
+
+
+        cartesian.crosshair().enabled(true);
+        cartesian.crosshair()
+                .yLabel(true)
+                // TODO ystroke
+                .yStroke((Stroke) null, null, null, (String) null, (String) null);
+
+
+        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
+
+        cartesian.title("Your HeartRate throughout the day");
+
+        cartesian.yAxis(0).title("BPM");
+        cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
+
+
+        cartesian.yScale().minimum(0d);
+
+        cartesian.yAxis(0).labels().format("${%Value}{groupsSeparator: }");
+
+        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
+        cartesian.interactivity().hoverMode(HoverMode.BY_X);
+
+        cartesian.xAxis(0).title("Date");
+        cartesian.yAxis(0).title("Heartrate");
 
         List<DataEntry> data = new ArrayList<>();
         data.add(new ValueDataEntry("January", 120));
@@ -95,31 +148,11 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
         data.add(new ValueDataEntry("Test7", 213));
         data.add(new ValueDataEntry("Test8", 98));
 
+
         Column column = cartesian.column(data);
 
         pie.data(data);
-
-        column.tooltip()
-                .titleFormat("{%X}")
-                .position(Position.CENTER_BOTTOM)
-                .anchor(Anchor.CENTER_BOTTOM)
-                .offsetX(0d)
-                .offsetY(5d)
-                .format("${%Value}{groupsSeparator: }");
-        cartesian.animation(true);
-        cartesian.title("Heartrate overview");
-
-        cartesian.yScale().minimum(0d);
-
-        cartesian.yAxis(0).labels().format("${%Value}{groupsSeparator: }");
-
-        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
-        cartesian.interactivity().hoverMode(HoverMode.BY_X);
-
-        cartesian.xAxis(0).title("Date");
-        cartesian.yAxis(0).title("Heartrate");
-
-        anyChartView.setChart(cartesian);
+        anyChartView.setChart(cartesian);*/
 
         return view;
 
@@ -149,6 +182,18 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
         datePickerDialog.show();
     }
 
+    private void getEntries() {
+        lineEntries = new ArrayList<>();
+       lineEntries.add(new Entry(0, 120));
+        lineEntries.add(new Entry(1, 40));
+        lineEntries.add(new Entry(2, 67));
+        lineEntries.add(new Entry(3, 87));
+        lineEntries.add(new Entry(4, 97));
+        lineEntries.add(new Entry(5, 59));
+    }
+
+
+
     private void getHRData(String date) {
         mAuth = FirebaseAuth.getInstance();
 
@@ -160,10 +205,20 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Integer> hrData = new ArrayList<>();
+                int i = 0;
+
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String hRate = String.valueOf(ds.getValue());
+                    //String hRate = String.valueOf(ds.getValue());
+                    //String hRate2 = hRate.replaceAll("[^0-9]","");
+                   // String hRate3 = hRate2.replaceAll(" ", "");
                     hrData.add(Integer.valueOf(hRate));
+
+                  /*  lineEntries = new ArrayList<>();
+                    lineEntries.add(new Entry(Integer.valueOf(hRate),i++));*/
+
+
+
                 }
                 Log.d("TAG", hrData.toString());
                 int avgHeartRate = calculateAverage(hrData);
@@ -193,5 +248,9 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
         changeDateTextView.setText(date);
         getHRData(date);
 
+
+
     }
+
 }
+

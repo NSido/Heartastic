@@ -45,6 +45,7 @@ public class MonitoringScreen extends Activity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseRef;
     private FirebaseUser mUser;
+    ArrayList<Integer> hrData = new ArrayList<>();
     Date mDate;
     String strInput;
 
@@ -144,7 +145,6 @@ public class MonitoringScreen extends Activity {
                             mTxtReceive.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    ArrayList<String> hrData = new ArrayList<>();
                                     mAuth = FirebaseAuth.getInstance();
                                     mDatabaseRef = FirebaseDatabase.getInstance().getReference();
                                     mUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -152,15 +152,15 @@ public class MonitoringScreen extends Activity {
 
 
                                     mTxtReceive.append(strInput);
-                                    String heartRate = strInput.replaceAll("\"","");
-                                    heartRate.replaceAll("(\\p{Alpha})", "");
+                                    String heartRate = strInput.replaceAll("[^0-9]","");
+                                    //heartRate.replaceAll("(\\p{Alpha})", "");
                                    // Log.d(TAG, heartRate.replaceAll("(\\p{Alpha})",""));
-                                    Log.d(TAG, heartRate);
+
 
 
 
                                     if (heartRate.length() <=7 ) {
-                                        hrData.add(heartRate);
+                                        hrData.add(Integer.valueOf(heartRate));
                                     }
                                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -169,8 +169,8 @@ public class MonitoringScreen extends Activity {
                                     Log.d(TAG, "onCreateView: " + date);
 
                                     if (mUser != null){
-                                        for(String hrRate : hrData) {
-                                            mDatabaseRef.child("UserHeartRateData").child(mAuth.getUid()).child(date).child(String.valueOf(System.currentTimeMillis())).setValue(hrData);
+                                        for(Integer hrRate : hrData) {
+                                            mDatabaseRef.child("UserHeartRateData").child(mAuth.getUid()).child(date).setValue(hrData);
                                         }
                                     }
 
