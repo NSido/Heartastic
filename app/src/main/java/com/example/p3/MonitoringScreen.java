@@ -3,6 +3,9 @@ package com.example.p3;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -25,8 +28,11 @@ import android.widget.Toast;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import static android.content.ContentValues.TAG;
 
 public class MonitoringScreen extends Activity {
 
@@ -37,7 +43,11 @@ public class MonitoringScreen extends Activity {
     private ReadInput mReadThread = null;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseRef;
+    private FirebaseUser mUser;
+    Date mDate;
+    String strInput;
+
 
 
     private boolean mIsUserInitiatedDisconnect = false;
@@ -76,7 +86,7 @@ public class MonitoringScreen extends Activity {
         mTxtReceive.setMovementMethod(new ScrollingMovementMethod());
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -124,7 +134,7 @@ public class MonitoringScreen extends Activity {
                          */
                         for (i = 0; i < buffer.length && buffer[i] != 0; i++) {
                         }
-                        final String strInput = new String(buffer, 0, i);
+                        strInput = new String(buffer, 0, i);
 
                         /*
                          * If checked then receive text, better design would probably be to stop thread if unchecked and free resources, but this is a quick fix
@@ -134,8 +144,37 @@ public class MonitoringScreen extends Activity {
                             mTxtReceive.post(new Runnable() {
                                 @Override
                                 public void run() {
+                                    ArrayList<String> hrData = new ArrayList<>();
+                                    mAuth = FirebaseAuth.getInstance();
+                                    mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                                    mUser = FirebaseAuth.getInstance().getCurrentUser();
+                                    mDate = new Date();
+
+
                                     mTxtReceive.append(strInput);
-                                    mDatabase.child("users").child(mAuth.getUid()).child(String.valueOf(System.currentTimeMillis())).setValue(strInput);
+                                    String heartRate = strInput.replaceAll("\"","");
+                                    heartRate.replaceAll("(\\p{Alpha})", "");
+                                   // Log.d(TAG, heartRate.replaceAll("(\\p{Alpha})",""));
+                                    Log.d(TAG, heartRate);
+
+
+
+                                    if (heartRate.length() <=7 ) {
+                                        hrData.add(heartRate);
+                                    }
+                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+
+                                    String date = simpleDateFormat.format(mDate);
+
+                                    Log.d(TAG, "onCreateView: " + date);
+
+                                    if (mUser != null){
+                                        for(String hrRate : hrData) {
+                                            mDatabaseRef.child("UserHeartRateData").child(mAuth.getUid()).child(date).child(String.valueOf(System.currentTimeMillis())).setValue(hrData);
+                                        }
+                                    }
+
+                                  //  mDatabaseRef.child("users").child(mAuth.getUid()).child(String.valueOf(System.currentTimeMillis())).setValue(strInput);
 
                                     int txtLength = mTxtReceive.getEditableText().length();
                                     if(txtLength > mMaxChars){

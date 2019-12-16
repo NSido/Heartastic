@@ -72,41 +72,6 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
 
 
 
-        mAuth = FirebaseAuth.getInstance();
-
-
-        mDatabaseRefRoot = FirebaseDatabase.getInstance().getReference();
-        mDatabaseRef = mDatabaseRefRoot.child("UserHeartRateData").child(mAuth.getUid()).child("2019/12/14");
-
-
-
-        ValueEventListener eventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Integer> hrData = new ArrayList<>();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String hRate = String.valueOf(ds.getValue());
-                    hrData.add(Integer.valueOf(hRate));
-                }
-                Log.d("TAG", hrData.toString());
-                int avgHeartRate = calculateAverage(hrData);
-                int maxHeartRate = Collections.max(hrData);
-                int minHeartRate = Collections.min(hrData);
-                avgHeartRateTextView.setText(String.valueOf(avgHeartRate) + " " + "BPM");
-                minHeartRateTextView.setText(String.valueOf(minHeartRate) + " " + "BPM");
-                maxHeartRateTextView.setText(String.valueOf(maxHeartRate) + " " + "BPM");
-
-                ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1
-                        , hrData);
-
-                mListView.setAdapter(arrayAdapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        };
-        mDatabaseRef.addListenerForSingleValueEvent(eventListener);
 
         changeDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,11 +149,49 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
         datePickerDialog.show();
     }
 
+    private void getHRData(String date) {
+        mAuth = FirebaseAuth.getInstance();
+
+
+        mDatabaseRefRoot = FirebaseDatabase.getInstance().getReference();
+        mDatabaseRef = mDatabaseRefRoot.child("UserHeartRateData").child(mAuth.getUid()).child(date);
+
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Integer> hrData = new ArrayList<>();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String hRate = String.valueOf(ds.getValue());
+                    hrData.add(Integer.valueOf(hRate));
+                }
+                Log.d("TAG", hrData.toString());
+                int avgHeartRate = calculateAverage(hrData);
+                int maxHeartRate = Collections.max(hrData);
+                int minHeartRate = Collections.min(hrData);
+                avgHeartRateTextView.setText(String.valueOf(avgHeartRate) + " " + "BPM");
+                minHeartRateTextView.setText(String.valueOf(minHeartRate) + " " + "BPM");
+                maxHeartRateTextView.setText(String.valueOf(maxHeartRate) + " " + "BPM");
+
+                ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1
+                        , hrData);
+
+                mListView.setAdapter(arrayAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        mDatabaseRef.addListenerForSingleValueEvent(eventListener);
+    }
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         month +=1;
         String date = year + "/" + month + "/" + dayOfMonth;
         changeDateTextView.setText(date);
+        getHRData(date);
 
     }
 }

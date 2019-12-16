@@ -38,12 +38,12 @@ public class HeartRateFragment extends Fragment {
        View view = inflater.inflate(R.layout.fragment_heartrate,container,false);
 
         ArrayList<Integer> hrData = new ArrayList<>();
-
+/*
         for (int i = 1; i <= 100; i++){
             hrData.add(i);
-        }
+        }*/
 
-        mAuth = FirebaseAuth.getInstance();
+      /*  mAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mDate = new Date();
@@ -58,7 +58,7 @@ public class HeartRateFragment extends Fragment {
         for(Integer hrRate : hrData) {
             mDatabaseRef.child("UserHeartRateData").child(mAuth.getUid()).child(date).setValue(hrData);
         }
-        }
+        }*/
 
         mMeasureButton = view.findViewById(R.id.measure_button);
         mMeasureButton.setOnClickListener(new View.OnClickListener() {
