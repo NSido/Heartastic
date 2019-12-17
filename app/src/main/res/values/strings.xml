@@ -30,4 +30,9 @@
     <string name="name_updated">Your name has been updated</string>
     <string name="fill_all">Please fill all fields!</string>
     <string name="change_date">CHANGE DATE</string>
+    <string name="search">Search</string>
+    <string name="connect">Connect</string>
+    <string name="connect_hr_device">CONNECT HR-DEVICE</string>
+    <string name="connection">CONNECTION</string>
+    <string name="pair_measure"><![CDATA[Pair & measure]]></string>
 </resources>

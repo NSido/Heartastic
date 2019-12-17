@@ -36,6 +36,7 @@ import static android.content.ContentValues.TAG;
 public class HeartRateFragment extends Fragment {
        private Button mMeasureButton;
        private Button mInstructButton;
+       private TextView mNameTextView;
        private FirebaseAuth mAuth;
        private DatabaseReference mDatabaseRef;
        private FirebaseUser mUser;
@@ -45,6 +46,12 @@ public class HeartRateFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_heartrate,container,false);
+        mAuth = FirebaseAuth.getInstance();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mNameTextView = view.findViewById(R.id.textview_name);
+
+
 
         mInstructButton = view.findViewById(R.id.instruct_button);
         mInstructButton.setOnClickListener(new View.OnClickListener() {
@@ -54,15 +61,18 @@ public class HeartRateFragment extends Fragment {
                 startActivity(intent);
             }
         });
-    ArrayList<Integer> hrData = new ArrayList<>();
+
+        if (mUser != null){
+            String name = mUser.getDisplayName();
+            mNameTextView.setText(name);
+        }
+   /* ArrayList<Integer> hrData = new ArrayList<>();
 
         for (int i = 1; i <= 100; i++){
             hrData.add(i);
         }
 
-        mAuth = FirebaseAuth.getInstance();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
         mDate = new Date();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -75,7 +85,7 @@ public class HeartRateFragment extends Fragment {
         for(Integer hrRate : hrData) {
             mDatabaseRef.child("UserHeartRateData").child(mAuth.getUid()).child(date).setValue(hrData);
         }
-        }
+        }*/
 
 
         mMeasureButton = view.findViewById(R.id.measure_button);

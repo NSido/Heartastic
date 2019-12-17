@@ -123,6 +123,7 @@
         android:fontFamily="@font/roboto_medium"
         android:text="@string/already_have_an_account_log_in_here"
         android:textColor="@color/colorPrimary"
+        android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/login_google_button"
         app:layout_constraintStart_toStartOf="@+id/login_google_button"
