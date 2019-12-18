@@ -50,7 +50,7 @@ public class ProfileFragment extends Fragment {
         mName = view.findViewById(R.id.edittext_name);
 
         if (user != null) {
-            // Name, email address, and profile photo Url
+            // Name, email address
             String name = user.getDisplayName();
             String email = user.getEmail();
 
@@ -67,7 +67,7 @@ public class ProfileFragment extends Fragment {
                     builder.setItems(options, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(final DialogInterface dialog, int which) {
-                            // the user clicked on colors[which]
+                            // the user clicked on options[which]
                             if (which == 0) {
                                 final AlertDialog.Builder mBuilderName = new AlertDialog.Builder(getActivity());
                                 View mViewName = getLayoutInflater().inflate(R.layout.dialog_name, null);
@@ -115,11 +115,6 @@ public class ProfileFragment extends Fragment {
                                 final EditText newPassword1 = mViewPassword.findViewById(R.id.edittext_password_dialog2);
                                 final EditText newPassword2 = mViewPassword.findViewById(R.id.edittext_password_dialog3);
                                 Button changePassword = mViewPassword.findViewById(R.id.button_change_password);
-
-                                final String mOldPassword = oldPassword.getText().toString();
-                                final String mNewPassword1 = newPassword1.getText().toString();
-                                final String mNewPassword2 = newPassword2.getText().toString();
-
 
                                 changePassword.setOnClickListener(new View.OnClickListener() {
                                     @Override

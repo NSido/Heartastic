@@ -1,5 +1,5 @@
 package com.example.p3;
-import android.app.Activity;
+
 import android.os.Bundle;
 
 import android.bluetooth.BluetoothAdapter;
@@ -11,7 +11,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,11 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-
-public class HtRe extends AppCompatActivity {
+public class ConnectionActivity extends AppCompatActivity {
 
     private Button search;
     private Button connect;
@@ -48,7 +46,7 @@ public class HtRe extends AppCompatActivity {
     private static final String DEVICE_LIST = "com.example.p3.devicelist";
     private static final String DEVICE_LIST_SELECTED = "com.example.p3.devicelistselected";
     public static final String BUFFER_SIZE = "com.example.p3.buffersize";
-    private static final String TAG = "BlueTest5-HtRe";
+    private static final String TAG = "ConnectionActivity";
 
 
     @Override
@@ -57,11 +55,9 @@ public class HtRe extends AppCompatActivity {
         setContentView(R.layout.activity_ht_re);
 
 
-
-        search = (Button) findViewById(R.id.search);
-        connect = (Button) findViewById(R.id.connect);
-
-        listView = (ListView) findViewById(R.id.listview);
+        search = findViewById(R.id.search);
+        connect = findViewById(R.id.connect);
+        listView = findViewById(R.id.listview);
 
         if (savedInstanceState != null) {
             ArrayList<BluetoothDevice> list = savedInstanceState.getParcelableArrayList(DEVICE_LIST);
@@ -109,7 +105,6 @@ public class HtRe extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
 
     }
@@ -163,6 +158,7 @@ public class HtRe extends AppCompatActivity {
 
     /**
      * Quick way to call the Toast
+     *
      * @param str
      */
     private void msg(String str) {
@@ -171,6 +167,7 @@ public class HtRe extends AppCompatActivity {
 
     /**
      * Initialize the List adapter
+     *
      * @param objects
      */
     private void initList(List<BluetoothDevice> objects) {
@@ -189,7 +186,7 @@ public class HtRe extends AppCompatActivity {
     /**
      * Searches for paired devices. Doesn't do a scan! Only devices which are paired through Settings->Bluetooth
      * will show up with this. I didn't see any need to re-build the wheel over here
-     * @author ryder
+     *
      *
      */
     private class SearchDevices extends AsyncTask<Void, Void, List<BluetoothDevice>> {
@@ -222,8 +219,8 @@ public class HtRe extends AppCompatActivity {
      * Custom adapter to show the current devices in the list. This is a bit of an overkill for this
      * project, but I figured it would be good learning
      * Most of the code is lifted from somewhere but I can't find the link anymore
-     * @author ryder
      *
+     * @author ryder
      */
     private class MyAdapter extends ArrayAdapter<BluetoothDevice> {
         private int selectedIndex;
@@ -283,7 +280,7 @@ public class HtRe extends AppCompatActivity {
                 vi = LayoutInflater.from(context).inflate(R.layout.list_item, null);
                 holder = new ViewHolder();
 
-                holder.tv = (TextView) vi.findViewById(R.id.lstContent);
+                holder.tv = vi.findViewById(R.id.lstContent);
 
                 vi.setTag(holder);
             } else {
@@ -305,8 +302,6 @@ public class HtRe extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-// Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.homescreen, menu);
         return true;
     }
 
@@ -314,7 +309,7 @@ public class HtRe extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent intent = new Intent(HtRe.this, PreferencesActivity.class);
+                Intent intent = new Intent(ConnectionActivity.this, PreferencesActivity.class);
                 startActivityForResult(intent, SETTINGS);
                 break;
         }

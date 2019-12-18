@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:background="#8FF0F0E5"
         android:backgroundTint="#00EFF1F1"
-        android:text="To set uo the device and get going you must do the following:\n 1.Turn on bluetooth on your phone.\n2.Connect to the bluetooth device named HC-05 with password 1234.\n3.Go back to the app and click on Pair device and measure your pulse.\n4.Click on search button and choose HC-05 and connect to it using the connect button.\n5.Congrats! now place your finger on the heart sensor and view your heart rate."
+        android:fontFamily="@font/roboto_medium"
+        android:text="To set up the device and get going you must do the following:\n\n1.Turn on bluetooth on your phone.\n\n2.Connect to the bluetooth device named HC-05 with password 1234.\n\n3.Go back to the app and click on Pair device and measure your pulse.\n\n4.Click on search button and choose HC-05 and connect to it using the connect button.\n\n5.Congrats! now place your finger on the heart sensor and view your heart rate."
         android:textColor="#EE000000"
-        android:textSize="16sp" />
+        android:textSize="11sp" />
 </RelativeLayout>

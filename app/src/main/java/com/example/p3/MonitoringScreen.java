@@ -1,6 +1,5 @@
 package com.example.p3;
 
-import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -21,22 +20,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import static android.content.ContentValues.TAG;
-
 public class MonitoringScreen extends Activity {
 
-    private static final String TAG = "BlueTest5-MainActivity";
+    private static final String TAG = "MonitoringScreen";
     private int mMaxChars = 50000;//Default
     private UUID mDeviceUUID;
     private BluetoothSocket mBTSocket;
@@ -75,22 +70,19 @@ public class MonitoringScreen extends Activity {
 
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
-        mDevice = b.getParcelable(HtRe.DEVICE_EXTRA);
-        mDeviceUUID = UUID.fromString(b.getString(HtRe.DEVICE_UUID));
-        mMaxChars = b.getInt(HtRe.BUFFER_SIZE);
+        mDevice = b.getParcelable(ConnectionActivity.DEVICE_EXTRA);
+        mDeviceUUID = UUID.fromString(b.getString(ConnectionActivity.DEVICE_UUID));
+        mMaxChars = b.getInt(ConnectionActivity.BUFFER_SIZE);
         Log.d(TAG, "Ready");
-        mTxtReceive = (TextView) findViewById(R.id.txtReceive);
-        chkScroll = (CheckBox) findViewById(R.id.chkScroll);
-        chkReceiveText = (CheckBox) findViewById(R.id.chkReceiveText);
-        scrollView = (ScrollView) findViewById(R.id.viewScroll);
-        mBtnClearInput = (Button) findViewById(R.id.btnClearInput);
+        mTxtReceive = findViewById(R.id.txtReceive);
+        chkScroll = findViewById(R.id.chkScroll);
+        chkReceiveText = findViewById(R.id.chkReceiveText);
+        scrollView = findViewById(R.id.viewScroll);
+        mBtnClearInput = findViewById(R.id.btnClearInput);
         mTxtReceive.setMovementMethod(new ScrollingMovementMethod());
 
         mAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-
-
-
 
 
 
@@ -153,13 +145,8 @@ public class MonitoringScreen extends Activity {
 
                                     mTxtReceive.append(strInput);
                                     String heartRate = strInput.replaceAll("[^0-9]","");
-                                    //heartRate.replaceAll("(\\p{Alpha})", "");
-                                   // Log.d(TAG, heartRate.replaceAll("(\\p{Alpha})",""));
 
-
-
-
-                                    if (heartRate.length() <=7 ) {
+                                    if (heartRate.length() <=4 ) {
                                         hrData.add(Integer.valueOf(heartRate));
                                     }
                                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");

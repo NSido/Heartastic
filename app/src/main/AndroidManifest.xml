@@ -19,8 +19,13 @@
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>
 
-        <activity android:name=".HtRe"></activity>
-        <activity android:name=".MonitoringScreen" />
+        <activity android:name=".ConnectionActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".MonitoringScreen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".HomeActivity"
             android:configChanges="orientation"

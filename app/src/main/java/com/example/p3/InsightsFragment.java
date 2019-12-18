@@ -51,7 +51,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class InsightsFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
+public class InsightsFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private TextView minHeartRateTextView;
     private TextView avgHeartRateTextView;
@@ -70,7 +70,6 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
     ArrayList<Integer> hrData;
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -84,13 +83,10 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
 
         hrData = new ArrayList<>();
 
-
-
-
         changeDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            showDatePickerDialog();
+                showDatePickerDialog();
 
             }
         });
@@ -104,55 +100,6 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
         lineDataSet.setValueTextColor(Color.BLACK);
         lineDataSet.setValueTextSize(18f);
 
-       /* Pie pie = AnyChart.pie();
-        Cartesian cartesian = AnyChart.line();
-        cartesian.animation(true);
-        cartesian.padding(10d, 20d, 5d, 20d);
-        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
-
-
-
-        cartesian.crosshair().enabled(true);
-        cartesian.crosshair()
-                .yLabel(true)
-                // TODO ystroke
-                .yStroke((Stroke) null, null, null, (String) null, (String) null);
-
-
-        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
-
-        cartesian.title("Your HeartRate throughout the day");
-
-        cartesian.yAxis(0).title("BPM");
-        cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
-
-
-        cartesian.yScale().minimum(0d);
-
-        cartesian.yAxis(0).labels().format("${%Value}{groupsSeparator: }");
-
-        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
-        cartesian.interactivity().hoverMode(HoverMode.BY_X);
-
-        cartesian.xAxis(0).title("Date");
-        cartesian.yAxis(0).title("Heartrate");
-
-        List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("January", 120));
-        data.add(new ValueDataEntry("February", 90));
-        data.add(new ValueDataEntry("March", 80));
-        data.add(new ValueDataEntry("Test3", 110));
-        data.add(new ValueDataEntry("Test4", 68));
-        data.add(new ValueDataEntry("Test5", 76));
-        data.add(new ValueDataEntry("Test6", 67));
-        data.add(new ValueDataEntry("Test7", 213));
-        data.add(new ValueDataEntry("Test8", 98));
-
-
-        Column column = cartesian.column(data);
-
-        pie.data(data);
-        anyChartView.setChart(cartesian);*/
 
         return view;
 
@@ -170,7 +117,7 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
         return sum;
     }
 
-    private void showDatePickerDialog(){
+    private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 getActivity(),
                 this,
@@ -184,7 +131,7 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
 
     private void getEntries() {
         lineEntries = new ArrayList<>();
-       lineEntries.add(new Entry(0, 120));
+        lineEntries.add(new Entry(0, 120));
         lineEntries.add(new Entry(1, 40));
         lineEntries.add(new Entry(2, 67));
         lineEntries.add(new Entry(3, 87));
@@ -193,10 +140,8 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
     }
 
 
-
     private void getHRData(String date) {
         mAuth = FirebaseAuth.getInstance();
-
 
         mDatabaseRefRoot = FirebaseDatabase.getInstance().getReference();
         mDatabaseRef = mDatabaseRefRoot.child("UserHeartRateData").child(mAuth.getUid()).child(date);
@@ -209,16 +154,7 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String hRate = String.valueOf(ds.getValue());
-                    //String hRate = String.valueOf(ds.getValue());
-                    //String hRate2 = hRate.replaceAll("[^0-9]","");
-                   // String hRate3 = hRate2.replaceAll(" ", "");
                     hrData.add(Integer.valueOf(hRate));
-
-                  /*  lineEntries = new ArrayList<>();
-                    lineEntries.add(new Entry(Integer.valueOf(hRate),i++));*/
-
-
-
                 }
                 Log.d("TAG", hrData.toString());
                 int avgHeartRate = calculateAverage(hrData);
@@ -228,8 +164,14 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
                 minHeartRateTextView.setText(String.valueOf(minHeartRate) + " " + "BPM");
                 maxHeartRateTextView.setText(String.valueOf(maxHeartRate) + " " + "BPM");
 
-                ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1
-                        , hrData);
+                ArrayList<String> listViewData = new ArrayList<>();
+
+                for (Integer heartRate : hrData) {
+                    listViewData.add((heartRate) + " BPM");
+                }
+
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1
+                        , listViewData);
 
                 mListView.setAdapter(arrayAdapter);
             }
@@ -243,14 +185,10 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        month +=1;
+        month += 1;
         String date = year + "/" + month + "/" + dayOfMonth;
         changeDateTextView.setText(date);
         getHRData(date);
-
-
-
     }
-
 }
 

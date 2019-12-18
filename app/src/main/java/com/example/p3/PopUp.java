@@ -13,14 +13,13 @@ public class PopUp extends Activity {
 
         setContentView(R.layout.pop_up);
 
-        DisplayMetrics  ws = new DisplayMetrics();
+        DisplayMetrics ws = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(ws);
 
         int width = ws.widthPixels;
         int height = ws.heightPixels;
 
-        getWindow().setLayout((int)(width*.9),(int)(height *.4));
-
+        getWindow().setLayout((int) (width * .9), (int) (height * .4));
 
 
     }

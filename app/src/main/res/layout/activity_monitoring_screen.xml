@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MonitoringScreen">
+    tools:context=".MonitoringScreen"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-
 
 
         <Button
@@ -55,11 +55,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
+                android:layout_marginTop="20dp"
                 android:background="#eeeeee"
-                android:typeface="monospace"
+                android:fontFamily="@font/roboto_thin"
                 android:hint="Message shows up here ..."
                 android:scrollbars="vertical"
-                android:layout_marginTop="20dp"/>
+                android:typeface="monospace" />
         </ScrollView>
     </LinearLayout>
 
