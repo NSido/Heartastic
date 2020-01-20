@@ -186,9 +186,17 @@ public class InsightsFragment extends Fragment implements DatePickerDialog.OnDat
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         month += 1;
-        String date = year + "/" + month + "/" + dayOfMonth;
+        if (month < 10){
+            String mon ="0" + "" + String.valueOf(month);
+            String date = year + "/" + mon + "/" + dayOfMonth;
         changeDateTextView.setText(date);
         getHRData(date);
+        }else {
+            String date = year + "/" + month + "/" + dayOfMonth;
+            changeDateTextView.setText(date);
+            getHRData(date);
+        }
     }
+
 }
 
